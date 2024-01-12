@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Anotheruser;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,20 +19,31 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
+        $email = $credentials['email'];
+
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/stamp');}
+            $email = auth()->user()->email;
+             return redirect()->intended('/stamp');
+        }else{
+            auth()->logout();
+            return redirect('/login')->with('error', 'ログインに失敗しました。');
+        }         
+            
+         }
+         
+    
 
-             throw ValidationException::withMessages([
-                'email' => ['ログインに失敗しました。'],
-                'password' => ['ログインに失敗しました。'],
-        ]);
+    private function checkRegistrationMatch($email)
+    {
+        $user = Anotheruser::findByEmail($email);
+        return ($user !== null);
     }
+
 
     public function destroy(Request $request)
     {
         auth()->logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');

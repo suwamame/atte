@@ -25,19 +25,26 @@
 
     <main>
         <div class="stamp-form__content">
-            <div class="stamp-form__heading">
-                <h2>さんお疲れ様です！</h2>
+            <div class="stamp-form__inner">
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                <div class="stamp-form__heading">
+                    <h2>さんお疲れ様です！</h2>
+                 </div>
+                <form class="stamp-form">
+                    <div class="form__button">
+                        <button class="start-form__button-submit" type="button">勤怠開始</button>
+                        <button class="end-form__button-submit" type="button">勤怠終了</button>
+                    </div>
+                    <div class="form__button">
+                        <button class="breakstart-form__button-submit" type="button">休憩開始</button>
+                        <button class="breakend-form__button-submit" type="button">休憩終了</button>
+                    </div>
+                </form>
             </div>
-            <form class="stamp-form">
-                <div class="form__button">
-                    <button class="start-form__button-submit" type="button">勤怠開始</button>
-                    <button class="end-form__button-submit" type="button">勤怠終了</button>
-                </div>
-                <div class="form__button">
-                    <button class="breakstart-form__button-submit" type="button">休憩開始</button>
-                    <button class="breakend-form__button-submit" type="button">休憩終了</button>
-                </div>
-            </form>
         </div>
     </main>
     @endsection

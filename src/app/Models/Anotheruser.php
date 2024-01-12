@@ -15,4 +15,9 @@ class Anotheruser extends Model
         'email',
         'password'
     ];
+
+    public static function findByEmail($email)
+    {
+        return static::where('email', $email)->first();
+    }
 }

@@ -18,6 +18,11 @@
             <div class="login-form__heading">
                 <h2>ログイン</h2>
             </div>
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
             <form class="form"  action="{{ route('login.post') }}" method="post">
                 @csrf
                 <div class="form__group">
