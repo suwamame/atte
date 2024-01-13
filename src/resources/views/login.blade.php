@@ -23,7 +23,7 @@
                 {{ session('error') }}
             </div>
             @endif
-            <form class="form"  action="{{ route('login.post') }}" method="post">
+            <form class="form" action="{{ route('login') }}" method="get">
                 @csrf
                 <div class="form__group">
                     <div class="form__group-content">

@@ -7,7 +7,8 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Anotheruser;
+use App\Models\User;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -36,7 +37,7 @@ class AuthenticatedSessionController extends Controller
 
     private function checkRegistrationMatch($email)
     {
-        $user = Anotheruser::findByEmail($email);
+        $user = User::where('email', $email)->first();
         return ($user !== null);
     }
 

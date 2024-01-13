@@ -10,10 +10,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//会員登録登録ページの表示・新規登録処理
+
+
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
+
 Route::get('/login',[AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post')->middleware('guest');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 Route::post('/stamp', [StampController::class, 'create']);
