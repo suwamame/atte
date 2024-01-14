@@ -32,7 +32,7 @@
                 </div>
                 @endif
                 <div class="stamp-form__heading">
-                    <h2>さんお疲れ様です！</h2>
+                    <h2>{{ Auth::user()->name }}さんお疲れ様です！</h2>
                  </div>
                 <form class="stamp-form">
                     <div class="form__button">
