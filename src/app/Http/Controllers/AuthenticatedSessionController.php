@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 
+
 class AuthenticatedSessionController extends Controller
 {
         public function create(Request $request)
@@ -25,7 +26,7 @@ class AuthenticatedSessionController extends Controller
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
             $email = auth()->user()->email;
-             return redirect()->intended('/stamp');
+             return redirect('/stamp');
         }else{
             auth()->logout();
             return redirect('/login')->with('error', 'ログインに失敗しました。');

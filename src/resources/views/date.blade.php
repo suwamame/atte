@@ -37,19 +37,18 @@
                             <span class="attendance-table__header-span">勤務時間</span>
                         </th>
                     </tr>
+                    @foreach($attendances as $attendance)
                     <tr class="attendance-table__row">
                         <td class="attendance-table__item">
-                            <form class="update-form" action="" method="post">
-                                <div class="update-form__item">
-                                    <input class="update-form__item-input" type="text" name="content" value="" />
-                                    <input type="hidden" name="id" value="" />
-                                </div>
-                                <div class="update-form__item">
-                                    <p class="update-form__item-p">Category 1</p>
-                                </div>
-                            </form>
+                            <!-- 勤怠データの表示を行う部分 -->
+                            <p>{{ $attendance->user->name }}</p>
+                            <p>{{ $attendance->start_time }}</p>
+                            <p>{{ $attendance->end_time }}</p>
+                            <p>{{ $attendance->break_time }}</p>
+                            <p>{{ $attendance->work_time }}</p>
                         </td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
             //ページネーションを作成予定

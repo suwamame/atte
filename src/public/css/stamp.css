@@ -53,6 +53,7 @@
 
 .stamp-form__heading {
     text-align: center;
+    padding-bottom: 20px;
 }
 
 h2 {
@@ -60,6 +61,14 @@ h2 {
     font-size: 20px;
     color: #000000;
 }
+
+.stamp-form__inner {
+    margin: 0 auto;
+
+}
+
+
+
 
 .form__button {
     display: flex;
@@ -79,8 +88,8 @@ h2 {
 .end-form__button-submit,
 .breakstart-form__button-submit,
 .breakend-form__button-submit {
-    width: 500px;
-    height: 200px;
+    width: 450px;
+    height: 180px;
     font-size: 25px;
     font-weight: bold;
     background-color: #FFFFFF;
@@ -90,7 +99,16 @@ h2 {
     border: none;
 }
 
+
+
 .start-form__button-submit,
 .breakstart-form__button-submit {
-    margin-right: 30px;
+    margin-left: 250px;
+    margin-right: 50px;
+
+}
+
+.breakstart-form__button-submit,
+.breakend-form__button-submit {
+    margin-top: 50px;
 }
