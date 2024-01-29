@@ -1,16 +1,16 @@
 # atte
 
-#アプリケーション名
+## アプリケーション名
 Atte（アット）
 概要説明
 　→勤怠管理システムになります。
 　「勤務開始」「勤務終了」「休憩開始」「休憩終了」を出勤したら押すことで
 　毎日の勤怠を管理できます。
 
-#　作成した目的
+##　作成した目的
 　企業に向けて毎日使用する勤怠管理システムを作成しました。
 
-#　機能一覧
+##　機能一覧
 ・会員登録
 ・ログイン
 ・ログアウト
@@ -28,13 +28,13 @@ Atte（アット）
 ・laravel:8
 ・データベース:http://localhost:8080/
 
-#　テーブル設計
+## テーブル設計
 https://docs.google.com/spreadsheets/d/1gxB890Emx7EbdQ0GirE2tgxcemktoHlQxY8QK1VFBhg/edit#gid=1844436133
 
 #　ER図
 https://docs.google.com/spreadsheets/d/1gxB890Emx7EbdQ0GirE2tgxcemktoHlQxY8QK1VFBhg/edit#gid=1008316442
 
-#　環境構築
+## 環境構築
 Laravel環境構築
 ●docker-compose exec php bash
 ●combos install
