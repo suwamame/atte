@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination\Paginator;
 use App\Http\Middleware\CheckAttendanceMiddleware;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\StampController;
 use App\Http\Controllers\BreakController;
 use App\Http\Controllers\AttendanceController;
+
 
 
 
@@ -35,12 +37,12 @@ Route::post('/end-working', [StampController::class, 'endWorking'])
     ->name('end.working')
     ->middleware(['check.attendance:end']);
 
-
  // 休憩開始・終了
 Route::post('/start-break', [BreakController::class, 'startBreak'])->name('start.break');
 Route::post('/end-break', [BreakController::class, 'endBreak'])->name('end.break');
 
 //日付一覧ビュー
-Route::get('/date/{date}', [AttendanceController::class, 'showDate'])->name('show.date');
+Route::get('/attendance', [AttendanceController::class, 'create'])->name('attendances.create');
+Route::get('/attendance', [AttendanceController::class, 'index']);
 
 });

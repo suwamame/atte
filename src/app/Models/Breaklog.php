@@ -11,7 +11,7 @@ class Breaklog extends Model
 {
     use HasFactory;
     protected $table = 'breaks';
-    protected $fillable = ['user_id', 'attendance_id', 'type', 'timestamp'];
+    protected $fillable = ['user_id', 'attendance_id', 'type', 'timestamp', 'break_time'];
 
     public function user()
     {
@@ -22,4 +22,27 @@ class Breaklog extends Model
     {
         return $this->belongsTo(Attendance::class);
     }
+
+    public function calculateTotalBreakTime()
+    {
+        $breakLogs = $this->attendance->breaklogs()->get();
+
+        $totalBreakTimeInSeconds = 0;
+        $startTimestamp = null;
+
+        foreach ($breakLogs as $breakLog) {
+            if ($breakLog->type == 'start') {
+                $startTimestamp = $breakLog->timestamp;
+            } elseif ($breakLog->type == 'end' && $startTimestamp !== null) {
+                $endTimestamp = $breakLog->timestamp;
+                $totalBreakTimeInSeconds += \Carbon\Carbon::parse($startTimestamp)->diffInSeconds($endTimestamp);
+                $startTimestamp = null; 
+            }
+        }
+
+         return $totalBreakTimeInSeconds;
+    }
+    
+
+    
 }

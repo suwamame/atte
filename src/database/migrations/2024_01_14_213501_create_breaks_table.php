@@ -18,8 +18,10 @@ class CreateBreaksTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('attendance_id')->constrained('attendances')->cascadeOnDelete();
             $table->string('type', 20);
+            $table->integer('break_time')->default(0);
             $table->timestamp('timestamp');
             $table->timestamps();
+            
         });
     }
 

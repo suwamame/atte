@@ -3,17 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
+use Carbon\Carbon;
+
 
 class AttendanceController extends Controller
 {
-    public function showDate($date)
+    public function index()
     {
-        $user = Auth::user();
-        // $date には表示したい日付が渡されると仮定
-        $attendances = Attendance::where(['user_id' => $user->id, 'date' => $date])->get();
 
-        return view('date', ['attendances' => $attendances, 'date' => $date]);
+        // 全ユーザーの勤怠情報を取得
+        $attendances = Attendance::all();
+
+        $attendances = Attendance::paginate(5);
+        
+        return view('date', ['attendances' => $attendances]);
+        
+
+    
+    }
+
+
+    public function create()
+    {
+        
     }
 }

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\Breaklog;
+use App\Http\Controllers\BreakController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthenticatedSessionController;
+use Carbon\Carbon;
 
 
 class StampController extends Controller
@@ -17,8 +20,6 @@ class StampController extends Controller
         return redirect('/login');
     }
         return view('stamp');
-
-        
     }
 
     public function startWorking()
@@ -28,40 +29,65 @@ class StampController extends Controller
 
         // 今日のデータが存在しなければ新規作成
         $attendance = Attendance::firstOrNew(['user_id' => $user->id, 'date' => $today]);
-        
-        $attendance->save();
+
+        // 日を跨いだ場合は新しい日のデータを作成
+        if ($attendance->start_time && !$attendance->end_time) {
+            $tomorrow = now()->addDay()->format('Y-m-d');
+            $attendance = Attendance::firstOrNew(['user_id' => $user->id, 'date' => $tomorrow]);
+        }
 
         if (!$attendance->start_time) {
             $attendance->start_time = now();
             $attendance->type = 'start';
             $attendance->save();
-            return response()->json(['success' => true, 'message' => '勤務を開始しました']);
-        } else {
-            return response()->json(['success' => false, 'message' => '既に勤務が開始されています']);
-        }
 
-        // 新しいコード: 勤怠データを取得してビューに渡す
-        $attendances = Attendance::where(['user_id' => auth()->user()->id])->get();
+            $message = '勤務を開始しました';
+            } else {
+                $message = '既に勤務が開始されています';
+                }
+                if (request()->ajax()) {
+                    return response()->json(['success' => !$attendance->start_time, 'message' => $message]);
+                    } else {
+                        // 通常のHTTPリクエストの場合は /stamp にリダイレクト
+                        return redirect('/stamp')->with($attendance->start_time ? 'error' : 'success', $message);
+                    }
 
-        return view('date', ['attendances' => $attendances]);
+
     }
 
     public function endWorking()
     {
-    $user = Auth::user();
-    $today = now()->format('Y-m-d');
+        $user = Auth::user();
+        $today = now()->format('Y-m-d');
 
-    // 新しいレコードを作成
-    $newAttendance = new Attendance();
-    $newAttendance->user_id = $user->id;
-    $newAttendance->date = $today;
-    $newAttendance->end_time = now();
-    $newAttendance->type = 'end';
-    $newAttendance->save();
+        // 今日のデータが存在しなければ新規作成
+        $attendance = Attendance::where('user_id', $user->id)
+        ->where('date', $today)
+        ->first();
 
-    return response()->json(['success' => true, 'message' => '勤務を終了しました']);
+        if (!$attendance) {
+            $attendance = new Attendance();
+            $attendance->user_id = $user->id;
+            $attendance->date = $today;
+        }
 
-    
-}
+        if (!$attendance->end_time) {
+            $attendance->end_time = now();
+            $attendance->type = 'end';
+            $attendance->save();
+            $attendance->calculateWorkTime(); // 勤務時間の計算
+
+            $message = '勤務を終了しました';
+        } else {
+            $message = '既に勤務が終了しています';
+        }
+
+        if (request()->ajax()) {
+            return response()->json(['success' => !$attendance->end_time, 'message' => $message]);
+        } else {
+            // 通常のHTTPリクエストの場合は /stamp にリダイレクト
+            return redirect('/stamp')->with($attendance->end_time ? 'error' : 'success', $message);
+        }
+    }
 
 }

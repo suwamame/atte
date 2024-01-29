@@ -31,6 +31,11 @@
                     {{ session('success') }}
                 </div>
                 @endif
+                @if(session('error'))
+                <div class="alert alert-danger">
+                {{ session('error') }}
+                </div>
+                @endif
                 <div class="stamp-form__heading">
                     <h2>{{ Auth::user()->name }}さんお疲れ様です！</h2>
                 </div>

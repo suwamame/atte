@@ -53,32 +53,31 @@
 
 .attendance-table {
     margin: 30px auto;
-    width: 80%;
-    text-align: center;
+    width: 90%;
+
 }
 
-.attendance-table__inner {}
 
 .attendance-table__row {
     border-bottom: 1px solid #170808;
 }
 
-.attendance-table__header {
-    padding: 12px;
-    width: 50%;
+.attendance-table__header,
+.attendance-table__item {
+    padding: 20px;
+    width: 90%;
     border-bottom: 1px solid #170808;
     border-top: 1px solid #170808;
     font-weight: bold;
+    text-align: left;
 }
 
-.attendance-table__header-span {
-    margin-right: 150px;
+.attendance-table__header-span,
+.attendance-table-span {
+    display: inline-block;
+    margin-right: 170px;
+    font-size: 20px;
 
-}
-
-.attendance-table__item:first-of-type {
-    padding: 12px;
-    width: 90%;
 }
 
 .update-form {
