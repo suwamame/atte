@@ -37,7 +37,7 @@ https://docs.google.com/spreadsheets/d/1gxB890Emx7EbdQ0GirE2tgxcemktoHlQxY8QK1VF
 ## 環境構築
 Laravel環境構築
 ●docker-compose exec php bash
-●combos install
+●composer install
 ●.env の環境変数の変更
 ●phpArtisan key:generate
 ●phpArtisan 移行 
