@@ -31,7 +31,7 @@ Atte（アット）
 ## テーブル設計
 https://docs.google.com/spreadsheets/d/1gxB890Emx7EbdQ0GirE2tgxcemktoHlQxY8QK1VFBhg/edit#gid=1844436133
 
-#　ER図
+## ER図
 https://docs.google.com/spreadsheets/d/1gxB890Emx7EbdQ0GirE2tgxcemktoHlQxY8QK1VFBhg/edit#gid=1008316442
 
 ## 環境構築
